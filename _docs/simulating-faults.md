@@ -1,6 +1,7 @@
 ---
 layout: docs
 title: Simulating Faults
+toc_rank: 8
 ---
 
 **One of the main reasons it's beneficial to use web service fakes when

@@ -1,6 +1,7 @@
 ---
 layout: docs
 title: HTTPS
+toc_rank: 10
 ---
 
 Handling HTTPS requests

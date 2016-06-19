@@ -1,6 +1,7 @@
 ---
 layout: docs
 title: 'The JUnit 4.x Rule'
+toc_rank: 2
 ---
 
 The JUnit rule provides a convenient way to include WireMock in your

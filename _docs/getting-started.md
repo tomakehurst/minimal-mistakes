@@ -1,6 +1,7 @@
 ---
 layout: docs
 title: Getting Started
+toc_rank: 1
 ---
 
 WireMock is distributed in two flavours - a standard JAR containing just

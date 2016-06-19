@@ -1,6 +1,7 @@
 ---
 layout: docs
 title: Running as a Standalone Process
+toc_rank: 4
 ---
 
 The WireMock server can be run in its own process, and configured via

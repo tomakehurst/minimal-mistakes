@@ -1,6 +1,7 @@
 ---
 layout: docs
 title: Record and Playback
+toc_rank: 7
 ---
 
 **WireMock has the ability to create stub mappings by recording them

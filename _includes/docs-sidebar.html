@@ -3,9 +3,11 @@
 
 <div class="sidebar sticky">
   <nav class="nav__list">
-    <!-- <span class="nav__sub-title">Getting Started</span> -->
+
     <ul>
-      {% for doc in site.docs %}
+      {% assign sorted_docs = (site.docs | sort: 'toc_rank' | pop ) %}
+
+      {% for doc in sorted_docs %}
       <li><a href="{{ doc.url }}">{{ doc.title }}</a>
       {% endfor %}
     </ul>

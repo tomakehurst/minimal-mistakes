@@ -1,6 +1,7 @@
 ---
 layout: docs
 title: 'Java (Non-JUnit) Usage'
+toc_rank: 3
 ---
 
 The Server

@@ -1,6 +1,7 @@
 ---
 layout: docs
 title: Proxying
+toc_rank: 6
 ---
 
 **WireMock has the ability to selectively proxy requests through to

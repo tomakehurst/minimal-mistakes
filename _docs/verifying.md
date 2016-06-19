@@ -1,6 +1,7 @@
 ---
 layout: docs
 title: Verifying
+toc_rank: 6
 ---
 
 **The WireMock server records all requests it receives in memory (at

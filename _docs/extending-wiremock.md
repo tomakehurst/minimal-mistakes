@@ -1,6 +1,7 @@
 ---
 layout: docs
 title: Extending WireMock
+toc_rank: 11
 ---
 
 Registering Extensions
