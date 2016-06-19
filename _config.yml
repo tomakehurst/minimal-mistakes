@@ -6,11 +6,11 @@
 # `jekyll serve`. If you change this file, please restart the server process.
 
 # Site Settings
-locale                   : "en-US"
-title                    : "Site Title"
+locale                   : "en-GB"
+title                    : "WireMock"
 title_separator          : "-"
-name                     : "Your Name"
-description              : "An amazing website."
+name                     : "Tom Akehurst"
+description              : "All things WireMock"
 url                      : # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : # the subpath of your site, e.g. "/blog"
 gh_repo                  :
@@ -198,6 +198,11 @@ tag_archive:
 #   permalinks:
 #     category: /categories/:name/
 #     tag: /tags/:name/
+
+collections:
+  docs:
+    output: true
+    permalink: /docs/:path
 
 
 # HTML Compression
