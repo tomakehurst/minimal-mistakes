@@ -46,6 +46,8 @@
   white-space: nowrap;
 
   &--lg {
+    font-family: "McLaren", "Segoe UI", "Helvetica Neue", "Lucida Grande", Arial, sans-serif;
+    font-size: $type-size-4;
     padding-right: 2em;
     font-weight: 700;
   }
