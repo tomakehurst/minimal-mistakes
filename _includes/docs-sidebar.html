@@ -3,9 +3,11 @@
 
 <div class="sidebar sticky">
   <nav class="nav__list">
-    <span class="nav__sub-title">Getting Started</span>
+    <!-- <span class="nav__sub-title">Getting Started</span> -->
     <ul>
-      <li><a href="#">Java</a>
+      {% for doc in site.docs %}
+      <li><a href="{{ doc.url }}">{{ doc.title }}</a>
+      {% endfor %}
     </ul>
   </nav>
 </div>
