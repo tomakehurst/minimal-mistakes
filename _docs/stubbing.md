@@ -4,9 +4,9 @@ title: Stubbing
 toc_rank: 5
 ---
 
-**A core feature of WireMock is the ability to return canned HTTP
+A core feature of WireMock is the ability to return canned HTTP
 responses for requests matching criteria. These criteria can be defined
-in terms of URL, headers and body content.**
+in terms of URL, headers and body content.
 
 Basic stubbing
 ==============
@@ -153,15 +153,17 @@ And in JSON via the `urlPattern` attribute:
 
 Alternatively, just the path part of the URL can be matched exactly or
 using a regular expression, which is most useful when combined with
-query parameter matching (stubbing-query-parameter-matching):
+query parameter matching:
 
 ```java
 stubFor(get(urlPathEqualTo("/query"))
+    .withQueryParam("one", equalTo("111"))
     .willReturn(aResponse().withStatus(200)));
 ```
 
 ```java
 stubFor(get(urlPathMatching("/qu.*"))
+    .withQueryParam("one", equalTo("111"))
     .willReturn(aResponse().withStatus(200)));
 ```
 
@@ -329,17 +331,13 @@ stubFor(post(urlEqualTo("/with/json/body"))
     .willReturn(aResponse().withStatus(200)));
 ```
 
-This uses [JSONAssert](http://jsonassert.skyscreamer.org/) internally.
-The default compare mode is `` `NON_EXTENSIBLE ``\` by default, but this
-can be overridden:
+By default JSON documents will be matched strictly - array order will matched and extra elements will not be permitted.
+However, you can override either of these traits:
+
 
 ```java
-.withRequestBody(equalToJson("{ \"houseNumber\": 4, \"postcode\": \"N1 1ZZ\" }", LENIENT))
+.withRequestBody(equalToJson("{ \"houseNumber\": 4, \"postcode\": \"N1 1ZZ\" }", true, true))
 ```
-
-See
-[JSONCompareMode](http://jsonassert.skyscreamer.org/apidocs/org/skyscreamer/jsonassert/JSONCompareMode.html)
-for more details.
 
 The JSON equivalent of the above example is:
 
@@ -349,7 +347,10 @@ The JSON equivalent of the above example is:
         "method": "POST",
         "url": "/with/json/body",
         "bodyPatterns" : [
-            { "equalToJson" : "{ \"houseNumber\": 4, \"postcode\": \"N1 1ZZ\" }", "jsonCompareMode": "LENIENT" }
+            { "equalToJson" : "{ \"houseNumber\": 4, \"postcode\": \"N1 1ZZ\" }",
+              "ignoreArrayOrder": true,
+              "ignoreExtraElements": true
+            }
         ]
     },
     "response": {
@@ -473,7 +474,7 @@ or:
 > **note**
 >
 > All of the request matching options described here can also be used
-> for verifying.
+> for [Verifying](/docs/verifying).
 
 Stub priority
 =============

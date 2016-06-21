@@ -20,7 +20,7 @@ wireMockServer.start();
 wireMockServer.stop();
 ```
 
-Like with stubbing-and-verification-via-rule you can call the
+As with stubbing and verification via the [JUnit rule](/docs/junit-rule) you can call the
 stubbing/verifying DSL from the server object as an alternative to
 calling the client.
 

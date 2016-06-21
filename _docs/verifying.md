@@ -4,10 +4,10 @@ title: Verifying
 toc_rank: 6
 ---
 
-**The WireMock server records all requests it receives in memory (at
-least until it is stubbing-reset). This makes it possible to verify that
+The WireMock server records all requests it receives in memory (at
+least until it is [reset](/docs/stubbing#reset)). This makes it possible to verify that
 a request matching a specific pattern was received, and also to fetch
-the requests' details.**
+the requests' details.
 
 Checking for matching requests
 ==============================
@@ -25,7 +25,7 @@ verify(postRequestedFor(urlEqualTo("/verify/this"))
 
 The criteria part in the parameter to `postRequestedFor()` uses the same
 builder as for stubbing, so all of the same predicates are available.
-See stubbing for more details.
+See [Stubbing](/docs/stubbing) for more details.
 
 To check for a precise number of requests matching the criteria, use
 this form:

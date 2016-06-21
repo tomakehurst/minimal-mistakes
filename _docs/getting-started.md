@@ -23,7 +23,7 @@ following in the dependencies section of your POM:
 <dependency>
     <groupId>com.github.tomakehurst</groupId>
     <artifactId>wiremock</artifactId>
-    <version>2.0.8-beta</version>
+    <version>2.1.0-beta</version>
 </dependency>
 ```
 
@@ -33,7 +33,7 @@ Or to use the standalone JAR:
 <dependency>
     <groupId>com.github.tomakehurst</groupId>
     <artifactId>wiremock-standalone</artifactId>
-    <version>2.0.8-beta</version>
+    <version>2.1.0-beta</version>
 </dependency>
 ```
 
@@ -41,13 +41,13 @@ Gradle
 ======
 
 ```groovy
-testCompile "com.github.tomakehurst:wiremock:2.0.8-beta"
+testCompile "com.github.tomakehurst:wiremock:2.1.0-beta"
 ```
 
 Or
 
 ```groovy
-testCompile "com.github.tomakehurst:wiremock-standalone:2.0.8-beta"
+testCompile "com.github.tomakehurst:wiremock-standalone:2.1.0-beta"
 ```
 
 JUnit 4.x
@@ -94,10 +94,9 @@ For many more examples of JUnit tests look no further than [WireMock's
 own acceptance
 tests](https://github.com/tomakehurst/wiremock/tree/master/src/test/java/com/github/tomakehurst/wiremock)
 
-For more details on verifying requests and stubbing responses, see
-stubbing and verifying
+For more details on verifying requests and stubbing responses, see [Stubbing](/docs/stubbing) and [Verifying](/docs/verifying)
 
-For more information on the JUnit rule see junit-rule.
+For more information on the JUnit rule see [The JUnit Rule](/docs/junit-rule).
 
 Detailed configuration
 ======================
@@ -176,9 +175,9 @@ the Java API, JSON over HTTP or JSON files.
 This will start the server on port 8080:
 
 You can [download the standalone JAR from
-here](http://repo1.maven.org/maven2/com/github/tomakehurst/wiremock-standalone/2.0.8-beta/wiremock-standalone-2.0.8-beta.jar).
+here](http://repo1.maven.org/maven2/com/github/tomakehurst/wiremock-standalone/2.1.0-beta/wiremock-standalone-2.1.0-beta.jar).
 
-See running-standalone for more details and commandline options.
+See [Running as a Standalone Process](/docs/running-standalone) running-standalone for more details and commandline options.
 
 Fetching all of your stub mappings (and checking WireMock is working)
 ---------------------------------------------------------------------
