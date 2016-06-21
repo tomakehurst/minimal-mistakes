@@ -4,8 +4,8 @@ title: 'Java (Non-JUnit) Usage'
 toc_rank: 3
 ---
 
-The Server
-==========
+## The Server
+
 
 If you want to use WireMock from Java (or any other JVM language)
 outside of JUnit you can programmatically create, start and stop the
@@ -24,14 +24,14 @@ As with stubbing and verification via the [JUnit rule](/docs/junit-rule) you can
 stubbing/verifying DSL from the server object as an alternative to
 calling the client.
 
-The Client
-==========
+## The Client
+
 
 The `WireMock` class provides an over-the-wire client to a WireMock
 server (the local one by default).
 
-Configuring for static calls
-----------------------------
+### Configuring for static calls
+
 
 To configure the static client for an alternative host and port:
 
@@ -49,8 +49,8 @@ other than root you'll need to set that too:
 WireMock.configureFor("tomcat.host", 8080, "/wiremock");
 ```
 
-Newing up
----------
+### Newing up
+
 
 Instances of `WireMock` can also be created. This is useful if you need
 to talk to more than one server instance.

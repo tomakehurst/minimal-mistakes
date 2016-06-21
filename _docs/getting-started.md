@@ -13,8 +13,7 @@ alternative packages. This allows WireMock to be used in projects with
 conflicting versions of its dependencies. The standalone JAR is also
 runnable (discussed in more detail below).
 
-Maven
-=====
+## Maven
 
 To add the standard WireMock JAR as a project dependency, put the
 following in the dependencies section of your POM:
@@ -37,8 +36,7 @@ Or to use the standalone JAR:
 </dependency>
 ```
 
-Gradle
-======
+## Gradle
 
 ```groovy
 testCompile "com.github.tomakehurst:wiremock:2.1.0-beta"
@@ -50,8 +48,8 @@ Or
 testCompile "com.github.tomakehurst:wiremock-standalone:2.1.0-beta"
 ```
 
-JUnit 4.x
-=========
+## JUnit 4.x
+
 
 To use WireMock's fluent API add the following import:
 
@@ -98,8 +96,7 @@ For more details on verifying requests and stubbing responses, see [Stubbing](/d
 
 For more information on the JUnit rule see [The JUnit Rule](/docs/junit-rule).
 
-Detailed configuration
-======================
+## Detailed configuration
 
 For a bit more control over the settings of the WireMock server created
 by the rule you can pass a fluently built Options object to either
@@ -113,8 +110,8 @@ import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMoc
 public WireMockRule wireMockRule = new WireMockRule(wireMockConfig().port(8089).httpsPort(8443));
 ```
 
-Random port numbers
--------------------
+### Random port numbers
+
 
 You can have WireMock (or more accurately the JVM) pick random, free
 HTTP and HTTPS ports (which is a great idea if you want to run your
@@ -132,8 +129,7 @@ int port = wireMockRule.port();
 int httpsPort = wireMockRule.httpsPort();
 ```
 
-Non-JUnit and general Java usage
-================================
+## Non-JUnit and general Java usage
 
 If you're not using JUnit or neither of the WireMock rules manage its
 lifecycle in a suitable way you can construct and start the server
@@ -166,8 +162,7 @@ than root you'll need to set that too:
 WireMock.configureFor("tomcat.host", 8080, "/wiremock");
 ```
 
-Running standalone
-==================
+## Running standalone
 
 The WireMock server can be run in its own process, and configured via
 the Java API, JSON over HTTP or JSON files.
@@ -186,8 +181,7 @@ A GET request to the root admin URL e.g `http://localhost:8080/__admin`
 will return all currently registered stub mappings. This is a useful way
 to check whether WireMock is running on the host and port you expect:
 
-Deploying into a servlet container
-==================================
+## Deploying into a servlet container
 
 WireMock can be packaged up as a WAR and deployed into a servlet
 container, with some caveats: fault injection and browser proxying won't
@@ -200,8 +194,7 @@ preferred option.
 The easiest way to create a WireMock WAR project is to clone the [sample
 app](https://github.com/tomakehurst/wiremock/tree/master/sample-war)
 
-Deploying under a sub-path of the context root
-----------------------------------------------
+### Deploying under a sub-path of the context root
 
 If you want WireMock's servlet to have a non-root path, the additional
 init param `mappedUnder` must be set with the sub-path web.xml (in

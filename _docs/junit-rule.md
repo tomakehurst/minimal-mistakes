@@ -8,8 +8,7 @@ The JUnit rule provides a convenient way to include WireMock in your
 test cases. It handles the lifecycle for you, starting the server before
 each test method and stopping afterwards.
 
-Basic usage
-===========
+## Basic usage
 
 To make WireMock available to your tests on its default port (8080):
 
@@ -18,8 +17,7 @@ To make WireMock available to your tests on its default port (8080):
 public WireMockRule wireMockRule = new WireMockRule();
 ```
 
-Server configuration
-====================
+## Server configuration
 
 The rule's constructor can take an `Options` instance to override
 various settings. An `Options` implementation can be created via the
@@ -30,8 +28,7 @@ various settings. An `Options` implementation can be created via the
 public WireMockRule wireMockRule = new WireMockRule(wireMockConfig().port(8888).httpsPort(8889));
 ```
 
-Other @Rule configurations
-==========================
+## Other @Rule configurations
 
 With a bit more effort you can make the WireMock server continue to run
 between test cases. This is easiest in JUnit 4.10:
@@ -70,8 +67,7 @@ public static void stopWireMock() {
 > `WireMockStaticRule` is deprecated as the above usage isn't permitted
 > from JUnit 4.11 onwards
 
-Accessing the stubbing and verification DSL from the rule
-=========================================================
+## Accessing the stubbing and verification DSL from the rule
 
 In addition the the static methods on the `WireMock` class, it is also
 possible to configure stubs etc. via the rule object directly. There are

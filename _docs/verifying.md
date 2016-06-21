@@ -9,11 +9,9 @@ least until it is [reset](/docs/stubbing#reset)). This makes it possible to veri
 a request matching a specific pattern was received, and also to fetch
 the requests' details.
 
-Checking for matching requests
-==============================
+## Checking for matching requests
 
-In Java
--------
+### Java
 
 To verify that a request matching some criteria was received by WireMock
 at least once:
@@ -44,8 +42,7 @@ verify(moreThanOrExactly(5), postRequestedFor(urlEqualTo("/many")));
 verify(moreThan(5), postRequestedFor(urlEqualTo("/many")));
 ```
 
-Via JSON + HTTP
----------------
+## JSON + HTTP
 
 There isn't a direct JSON equivalent to the above Java API. However,
 it's possible to achieve the same effect by requesting a count of the
@@ -73,8 +70,7 @@ A response of this form will be returned:
 { "count": 4 }
 ```
 
-Matching on header absence
---------------------------
+### Matching on header absence
 
 When verifying (unlike stubbing) it is possible to specify that a
 particular header is not present:
@@ -97,8 +93,7 @@ Which is equivalent to:
 }
 ```
 
-Querying request details
-========================
+## Querying request details
 
 It is also possible to retrieve the details of recorded requests. In
 Java this is done via a call to `findAll()`:
@@ -145,8 +140,7 @@ which will return a response like this:
 }
 ```
 
-Listening for requests
-======================
+## Listening for requests
 
 If you're using the JUnit rule or you've started `WireMockServer`
 programmatically, you can register listeners to be called when a request
@@ -168,8 +162,7 @@ for (Request request: requests) {
 }
 ```
 
-Reset
-=====
+## Reset
 
 The request log can be reset at any time. If you're using either of the
 JUnit rules this will happen automatically at the start of every test

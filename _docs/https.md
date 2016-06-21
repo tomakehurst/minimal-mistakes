@@ -4,8 +4,7 @@ title: HTTPS
 toc_rank: 10
 ---
 
-Handling HTTPS requests
-=======================
+## Handling HTTPS requests
 
 To enable HTTPS using WireMock's self-signed certificate just specify an
 HTTPS port:
@@ -26,8 +25,8 @@ public WireMockRule wireMockRule = new WireMockRule(wireMockConfig()
     .keystorePassword("verysecret")); // Defaults to "password" if omitted
 ```
 
-Requiring client certificates
-=============================
+## Requiring client certificates
+
 
 To make WireMock require clients to authenticate via a certificate you
 need to supply a trust store containing the certs to trust and enable

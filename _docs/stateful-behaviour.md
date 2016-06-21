@@ -8,8 +8,7 @@ toc_rank: 9
 others interact with it. So it's pretty useful to be able to simulate
 this when you've swapped a real service for a test double.**
 
-Scenarios
-=========
+## Scenarios
 
 WireMock supports state via the notion of scenarios. A scenario is
 essentially a state machine whose states can be arbitrarily assigned. It
@@ -107,8 +106,7 @@ The JSON equivalent for the above three stubs is:
 }
 ```
 
-Scenarios reset
-===============
+## Scenarios reset
 
 The state of all configured scenarios can be reset back to
 `Scenario.START` either by calling `WireMock.resetAllScenarios()` in

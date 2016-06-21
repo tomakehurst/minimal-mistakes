@@ -10,7 +10,7 @@ the Java API, JSON over HTTP or JSON files.
 This will start the server on port 8080:
 
 You can [download the standalone JAR from
-here](http://repo1.maven.org/maven2/com/github/tomakehurst/wiremock-standalone/2.0.8-beta/wiremock-standalone-2.0.8-beta.jar).
+here](http://repo1.maven.org/maven2/com/github/tomakehurst/wiremock-standalone/2.1.0-beta/wiremock-standalone-2.1.0-beta.jar).
 
 Supported command line options are:
 
@@ -95,8 +95,7 @@ extending-wiremock.
 
 `--help`: Show command line help
 
-File serving
-============
+## File serving
 
 When running standalone files placed under the `__files` directory will
 be served up as if from under the docroot, except if stub mapping
@@ -105,8 +104,7 @@ matching the URL exists. For example if a file exists
 `/things/myfile.html` then hitting
 `http://<host>:<port>/things/myfile.html` will serve the file.
 
-Configuring via JSON
-====================
+## Configuring via JSON
 
 Once the server has started you can give it a spin by setting up a stub
 mapping via the JSON API:
@@ -151,8 +149,7 @@ More content
 
 See stubbing and verifying for more on the JSON API.
 
-Shutting Down
--------------
+### Shutting Down
 
 To shutdown the server, either call `WireMock.shutdownServer()` or post
 a request with an empty body to `http://<host>:<port>/__admin/shutdown`.

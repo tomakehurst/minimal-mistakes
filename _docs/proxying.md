@@ -103,8 +103,8 @@ already configured:
 
 Then it's simply a case of adding your stub mapping `.json` files under `mappings` as usual (see [Stubbing](/docs/stubbing)).
 
-Running as a browser proxy
-==========================
+## Running as a browser proxy
+
 
 WireMock can be made to work as a browser proxy. This supports a website
 based variant of the proxy/intercept pattern described above, allowing
@@ -112,8 +112,8 @@ you to modify specific AJAX requests or swap out CSS/Javascript files.
 
 This currently only works in standalone mode:
 
-Proxying via another proxy server
-=================================
+## Proxying via another proxy server
+
 
 If you're inside a network that only permits HTTP traffic out to the
 internet via an opaque proxy you might wish to set up proxy mappings
@@ -128,8 +128,8 @@ import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMoc
 WireMockServer wireMockServer = new WireMockServer(wireMockConfig().proxyVia("proxy.mycorp.com", 8080);
 ```
 
-Proxying to a target server that requires client certificate authentication
-===========================================================================
+## Proxying to a target server that requires client certificate authentication
+
 
 WireMock's proxy client will send a client certificate if the target
 service requires it and a trust store containing the certificate is

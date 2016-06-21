@@ -8,8 +8,7 @@ A core feature of WireMock is the ability to return canned HTTP
 responses for requests matching criteria. These criteria can be defined
 in terms of URL, headers and body content.
 
-Basic stubbing
-==============
+## Basic stubbing
 
 The following code will configure a response with a status of 200 to be
 returned when the relative URL exactly matches `/some/thing` (including
@@ -90,8 +89,7 @@ HTTP methods currently supported are:
 `GET, POST, PUT, DELETE, HEAD, TRACE, OPTIONS`. You can specify `ANY` if
 you want the stub mapping to match on any request method.
 
-Setting the response status message
------------------------------------
+### Setting the response status message
 
 In addition to the status code, the status message can optionally also
 be set:
@@ -125,8 +123,7 @@ Or
 }
 ```
 
-URL matching
-============
+## URL matching
 
 Entire URLs can be matched exactly (as in the example above) or via a
 regular expression. In Java this is done with the `urlMatching()`
@@ -181,8 +178,7 @@ And in JSON via the `urlPath` attribute:
 }
 ```
 
-Request header matching
-=======================
+## Request header matching
 
 To match stubs according to request headers:
 
@@ -223,8 +219,7 @@ Or
 }
 ```
 
-Basic Authentication
---------------------
+## Basic Authentication
 
 Although HTTP basic authentication can be supported by requiring a
 correctly encoded Authorization header, you can also do this more simply
@@ -252,8 +247,7 @@ Or
 }
 ```
 
-Query parameter matching
-========================
+## Query parameter matching
 
 Query parameters can be matched in a similar fashion to headers:
 
@@ -286,8 +280,7 @@ Note: you must use `urlPathEqualTo` or `urlPathMatching` to specify the
 path, as `urlEqualTo` or `urlMatching` will attempt to match the whole
 request URL, including the query parameters.
 
-Request body matching
-=====================
+## Request body matching
 
 For PUT and POST requests the contents of the request body can be used
 to match stubs:
@@ -320,8 +313,7 @@ The JSON equivalent of the above example would be:
 }
 ```
 
-JSON body matching
-------------------
+## JSON body matching
 
 Body content which is valid JSON can be matched on semantically:
 
@@ -392,8 +384,7 @@ The JSON equivalent of the above example would be:
 }
 ```
 
-XML body matching
------------------
+## XML body matching
 
 As with JSON, XML bodies can be matched on semantically.
 
@@ -411,8 +402,7 @@ and in JSON:
 ]
 ```
 
-XPath body matching
--------------------
+## XPath body matching
 
 Similar to matching on JSONPath, XPath can be used with XML bodies. An
 XML document will be considered to match if any elements are returned by
@@ -476,8 +466,7 @@ or:
 > All of the request matching options described here can also be used
 > for [Verifying](/docs/verifying).
 
-Stub priority
-=============
+## Stub priority
 
 It is sometimes the case that you'll want to declare two or more stub
 mappings that "overlap", in that a given request would be a match for
@@ -516,11 +505,9 @@ Priority is set via the `priority` attribute in JSON:
 }
 ```
 
-Sending response headers
-========================
+## Sending response headers
 
-In addition to matching on request headers, it's also possible to send
-response headers:
+In addition to matching on request headers, it's also possible to send response headers:
 
 ```java
 stubFor(get(urlEqualTo("/whatever"))
@@ -548,8 +535,7 @@ Or
 }
 ```
 
-Specifying the response body
-============================
+## Specifying the response body
 
 The simplest way to specify a response body is as a string literal:
 
@@ -634,8 +620,7 @@ JSON documents):
 }
 ```
 
-Saving stubs
-============
+## Saving stubs
 
 Stub mappings which have been created can be persisted to the `mappings`
 directory via a call to `WireMock.saveAllMappings` in Java or posting a
@@ -645,7 +630,7 @@ request with an empty body to
 Note that this feature is not available when running WireMock from a
 servlet container.
 
-Removing stubs ============
+## Removing stubs
 
 Stub mappings which have been created can be removed via `mappings`
 directory via a call to `WireMock.removeStubMapping` in Java or posting
@@ -691,8 +676,7 @@ Note that this api only removes one mapping and not multiple ones if
 they exist Note that this feature is not available when running WireMock
 from a servlet container.
 
-Reset
-=====
+## Reset
 
 The WireMock server can be reset at any time, removing all stub mappings
 and deleting the request log. If you're using either of the JUnit rules

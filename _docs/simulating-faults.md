@@ -10,8 +10,7 @@ real service to produce on demand. In addition to being able to send
 back any HTTP response code indicating an error, WireMock is able to
 generate a few other types of problem.**
 
-Stub fixed delays
-=================
+## Per-stub fixed delays
 
 A stub response can have a fixed delay attached to it, such that the
 response will not be returned until after the specified number of
@@ -39,8 +38,7 @@ Or
 }
 ```
 
-Global stub delays
-------------------
+## Global stub delays
 
 A fixed delay can be added to all stubs either by calling
 `WireMock.setGlobalFixedDelay()` or posting a JSON document of the
@@ -52,8 +50,8 @@ following form to `http://<host>:<port>/__admin/settings`:
 }
 ```
 
-Stub random delays
-==================
+## Per-stub random delays
+
 
 In addition to fixed delays, a delay can be sampled from a random
 distribution. This allows simulation of more specific downstream
@@ -88,8 +86,7 @@ Or set it on the `delayDistribution` field via the JSON api:
 }
 ```
 
-Global stub delays
-------------------
+## Global stub delays
 
 You can set a random delay globally with
 `WireMock.setGlobalRandomDelay()` or the JSON api at
@@ -105,8 +102,7 @@ You can set a random delay globally with
 }
 ```
 
-Available distributions
------------------------
+## Available distributions
 
 ### Lognormal delay
 
@@ -152,8 +148,7 @@ To use, instantiate a `new UniformDistribution(15, 25)`, or via JSON:
 }
 ```
 
-Bad responses
-=============
+## Bad responses
 
 It is also possible to create several kinds of corrupted responses:
 

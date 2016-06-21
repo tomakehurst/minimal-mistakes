@@ -4,8 +4,8 @@ title: Extending WireMock
 toc_rank: 11
 ---
 
-Registering Extensions
-======================
+## Registering Extensions
+
 
 You can register the extension programmatically via its class name,
 class or an instance:
@@ -20,8 +20,8 @@ new WireMockServer(wireMockConfig().extensions(new BodyContentTransformer(), new
 
 See [Running as a Standalone Process](/docs/running-standalone) for details on running with extensions from the command line.
 
-Transforming Responses
-======================
+## Transforming Responses
+
 
 Sometimes, returning wholly static responses to stub requests isn't
 practical e.g. when there are transaction IDs being passed between
@@ -81,8 +81,8 @@ public static class ExampleTransformer extends ResponseDefinitionTransformer {
 Transformer classes must have a no-args constructor unless you only
 intend to register them via an instance as described below.
 
-Supplying parameters
---------------------
+### Supplying parameters
+
 
 Parameters are supplied on a per stub mapping basis:
 
@@ -113,8 +113,7 @@ or:
 }
 ```
 
-Non-global transformations
---------------------------
+### Non-global transformations
 
 By default transformations will be applied globally. If you only want
 them to apply in certain cases you can refer to make them non-global by
@@ -161,8 +160,8 @@ stubFor(get(urlEqualTo("/transform")).willReturn(
                 .withTransformer("body-transformer", "newValue", 66)));
 ```
 
-Response transformation
------------------------
+### Response transformation
+
 
 A response transformer extension class is identical to
 `ResponseDefinitionTransformer` with the exception that it takes a
