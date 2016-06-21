@@ -55,6 +55,37 @@ document can either be posted to
 }
 ```
 
+
+
+```java
+  @Test
+  public void exactUrlOnly() {
+      stubFor(get(urlEqualTo("/some/thing"))
+              .willReturn(aResponse()
+                  .withHeader("Content-Type", "text/plain")
+                  .withBody("Hello world!")));
+
+      assertThat(testClient.get("/some/thing").statusCode(), is(200));
+      assertThat(testClient.get("/some/thing/else").statusCode(), is(404));
+  }
+```
+```javascript
+  {
+      "request": {
+          "method": "GET",
+          "url": "/some/thing"
+      },
+      "response": {
+          "status": 200,
+          "body": "Hello world!",
+          "headers": {
+              "Content-Type": "text/plain"
+          }
+      }
+  }
+```
+
+
 HTTP methods currently supported are:
 `GET, POST, PUT, DELETE, HEAD, TRACE, OPTIONS`. You can specify `ANY` if
 you want the stub mapping to match on any request method.

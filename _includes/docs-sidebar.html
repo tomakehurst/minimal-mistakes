@@ -8,7 +8,12 @@
       {% assign sorted_docs = (site.docs | sort: 'toc_rank' | pop ) %}
 
       {% for doc in sorted_docs %}
-      <li><a href="{{ doc.url }}">{{ doc.title }}</a>
+      <li>
+        {% if doc.url == page.url %}<a href="{{ doc.url }}" class="nav__list-item--selected">
+        {% else %}<a href="{{ doc.url }}">{% endif %}
+
+        {{ doc.title }}
+      </a>
       {% endfor %}
     </ul>
   </nav>
