@@ -109,13 +109,15 @@ matching the URL exists. For example if a file exists
 Once the server has started you can give it a spin by setting up a stub
 mapping via the JSON API:
 
-```console
-$ curl -X POST --data '{ "request": { "url": "/get/this", "method": "GET" }, "response": { "status": 200, "body": "Here it is!\n" }}' http://localhost:8080/__admin/mappings/new
+```bash
+$ curl -X POST \
+--data '{ "request": { "url": "/get/this", "method": "GET" }, "response": { "status": 200, "body": "Here it is!\n" }}' \
+http://localhost:8080/__admin/mappings/new
 ```
 
 Then fetching it back:
 
-```console
+```bash
 $ curl http://localhost:8080/get/this
 Here it is!
 ```
@@ -142,7 +144,7 @@ To create a stub like the one above by this method, drop a file with a
 
 After restarting the server you should be able to do this:
 
-```console
+```bash
 $ curl http://localhost:8080/api/mytest
 More content
 ```
