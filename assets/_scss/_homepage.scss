@@ -1,0 +1,9 @@
+.code-shots {
+  display: flex;
+
+  &__code-shot {
+    margin: 10px;
+    width: 400px;
+    flex: 1;
+  }
+}
