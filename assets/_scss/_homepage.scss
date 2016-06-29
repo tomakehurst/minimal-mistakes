@@ -7,3 +7,27 @@
     flex: 1;
   }
 }
+
+.homepage-section {
+  border-bottom: 1px $lighter-gray solid;
+  margin-bottom: 3em;
+
+  &__heading {
+    border-bottom: 0 !important;
+    font-size: $type-size-3;
+  }
+
+  &__heading--centred {
+    text-align: center;
+  }
+}
+
+.users-of {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  &__logo {
+    margin: 2em;
+  }
+}

@@ -2,6 +2,7 @@
 layout: docs
 title: Record and Playback
 toc_rank: 7
+redirect_from: "/record-playback.html"
 ---
 
 **WireMock has the ability to create stub mappings by recording them

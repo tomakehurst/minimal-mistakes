@@ -2,6 +2,7 @@
 layout: docs
 title: Stubbing
 toc_rank: 5
+redirect_from: "/stubbing.html"
 ---
 
 A core feature of WireMock is the ability to return canned HTTP
@@ -464,7 +465,7 @@ or:
 > **note**
 >
 > All of the request matching options described here can also be used
-> for [Verifying](/docs/verifying).
+> for [Verifying](/docs/verifying/).
 
 ## Stub priority
 

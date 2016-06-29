@@ -2,6 +2,7 @@
 layout: docs
 title: Stateful Behaviour
 toc_rank: 9
+redirect_from: "/stateful-behaviour.html"
 ---
 
 **Most web services tend to have some state, which changes as you and

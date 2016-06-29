@@ -2,6 +2,7 @@
 layout: docs
 title: Proxying
 toc_rank: 6
+redirect_from: "/proxying.html"
 ---
 
 WireMock has the ability to selectively proxy requests through to
@@ -10,7 +11,7 @@ default proxied to another (possibly real, live) service, but where
 specific stubs are configured these are returned in place of the remote
 service's response. Responses that the live service can't be forced to
 generate on demand can thus be injected for testing. Proxying also
-supports [record and playback](/docs/record-playback).
+supports [record and playback](/docs/record-playback/).
 
 Proxy stub mappings
 ===================
@@ -93,7 +94,7 @@ or
 }
 ```
 
-You can also add response headers via the same method as for non-proxy responses (see [Stubbing](/docs/stubbing)).
+You can also add response headers via the same method as for non-proxy responses (see [Stubbing](/docs/stubbing/)).
 
 Standalone shortcut
 -------------------
@@ -101,7 +102,7 @@ Standalone shortcut
 It is possible to start the standalone running with the catch-all stub
 already configured:
 
-Then it's simply a case of adding your stub mapping `.json` files under `mappings` as usual (see [Stubbing](/docs/stubbing)).
+Then it's simply a case of adding your stub mapping `.json` files under `mappings` as usual (see [Stubbing](/docs/stubbing/)).
 
 ## Running as a browser proxy
 
@@ -142,4 +143,4 @@ public WireMockRule wireMockRule = new WireMockRule(wireMockConfig()
     .trustStorePassword("mostsecret")); // Defaults to "password" if omitted
 ```
 
-See [Running as a Standalone Process](/docs/running-standalone) for command line equivalent.
+See [Running as a Standalone Process](/docs/running-standalone/) for command line equivalent.

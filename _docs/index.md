@@ -2,6 +2,7 @@
 layout: docs
 title: User Documentation - Welcome
 toc_rank: 101
+permalink: /docs/
 ---
 
 WireMock is an HTTP mock server. At its core it is web server that can be primed to serve canned responses to particular requests (stubbing) and
@@ -16,4 +17,4 @@ All of WireMock's features are accessible via its REST (JSON) interface and its 
 
 If you have any questions that aren't answered here please post them on the [mailing list](https://groups.google.com/forum/#!forum/wiremock-user).
 
-Ready to try it? Head to the [Getting Started](/docs/getting-started) page.
+Ready to try it? Head to the [Getting Started](/docs/getting-started/) page.

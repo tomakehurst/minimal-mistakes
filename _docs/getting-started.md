@@ -2,6 +2,7 @@
 layout: docs
 title: Getting Started
 toc_rank: 1
+redirect_from: "/getting-started.html"
 ---
 
 WireMock is distributed in two flavours - a standard JAR containing just
@@ -92,9 +93,9 @@ For many more examples of JUnit tests look no further than [WireMock's
 own acceptance
 tests](https://github.com/tomakehurst/wiremock/tree/master/src/test/java/com/github/tomakehurst/wiremock)
 
-For more details on verifying requests and stubbing responses, see [Stubbing](/docs/stubbing) and [Verifying](/docs/verifying)
+For more details on verifying requests and stubbing responses, see [Stubbing](/docs/stubbing) and [Verifying](/docs/verifying/)
 
-For more information on the JUnit rule see [The JUnit Rule](/docs/junit-rule).
+For more information on the JUnit rule see [The JUnit Rule](/docs/junit-rule/).
 
 ## Detailed configuration
 
@@ -172,7 +173,7 @@ This will start the server on port 8080:
 You can [download the standalone JAR from
 here](http://repo1.maven.org/maven2/com/github/tomakehurst/wiremock-standalone/2.1.0-beta/wiremock-standalone-2.1.0-beta.jar).
 
-See [Running as a Standalone Process](/docs/running-standalone) running-standalone for more details and commandline options.
+See [Running as a Standalone Process](/docs/running-standalone/) running-standalone for more details and commandline options.
 
 Fetching all of your stub mappings (and checking WireMock is working)
 ---------------------------------------------------------------------

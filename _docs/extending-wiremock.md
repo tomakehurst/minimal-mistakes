@@ -2,6 +2,7 @@
 layout: docs
 title: Extending WireMock
 toc_rank: 11
+redirect_from: "/extending-wiremock.html"
 ---
 
 ## Registering Extensions
@@ -18,7 +19,7 @@ new WireMockServer(wireMockConfig().extensions(BodyContentTransformer.class, Hea
 new WireMockServer(wireMockConfig().extensions(new BodyContentTransformer(), new HeaderMangler()));
 ```
 
-See [Running as a Standalone Process](/docs/running-standalone) for details on running with extensions from the command line.
+See [Running as a Standalone Process](/docs/running-standalone/) for details on running with extensions from the command line.
 
 ## Transforming Responses
 

@@ -2,6 +2,7 @@
 layout: docs
 title: 'Java (Non-JUnit) Usage'
 toc_rank: 3
+redirect_from: "/java-usage.html"
 ---
 
 ## The Server
@@ -20,7 +21,7 @@ wireMockServer.start();
 wireMockServer.stop();
 ```
 
-As with stubbing and verification via the [JUnit rule](/docs/junit-rule) you can call the
+As with stubbing and verification via the [JUnit rule](/docs/junit-rule/) you can call the
 stubbing/verifying DSL from the server object as an alternative to
 calling the client.
 

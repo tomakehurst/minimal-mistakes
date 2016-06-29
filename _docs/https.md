@@ -2,6 +2,7 @@
 layout: docs
 title: HTTPS
 toc_rank: 10
+redirect_from: "/https.html"
 ---
 
 ## Handling HTTPS requests
