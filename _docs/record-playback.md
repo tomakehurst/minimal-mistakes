@@ -3,6 +3,7 @@ layout: docs
 title: Record and Playback
 toc_rank: 7
 redirect_from: "/record-playback.html"
+description: Recording HTTP exchanges with other APIs and playing them back as stubs.
 ---
 
 **WireMock has the ability to create stub mappings by recording them

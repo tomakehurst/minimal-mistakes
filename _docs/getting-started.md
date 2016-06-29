@@ -3,6 +3,7 @@ layout: docs
 title: Getting Started
 toc_rank: 1
 redirect_from: "/getting-started.html"
+description: Getting started with WireMock. Java, JUnit, standalone, servlet container.
 ---
 
 WireMock is distributed in two flavours - a standard JAR containing just

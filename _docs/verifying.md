@@ -3,6 +3,7 @@ layout: docs
 title: Verifying
 toc_rank: 6
 redirect_from: "/verifying.html"
+description: Verifying whether specific HTTP requests were made.
 ---
 
 The WireMock server records all requests it receives in memory (at

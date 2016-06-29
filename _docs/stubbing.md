@@ -3,6 +3,7 @@ layout: docs
 title: Stubbing
 toc_rank: 5
 redirect_from: "/stubbing.html"
+description: Returning stubbed HTTP responses to specific requests.
 ---
 
 A core feature of WireMock is the ability to return canned HTTP

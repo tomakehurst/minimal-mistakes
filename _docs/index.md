@@ -3,6 +3,7 @@ layout: docs
 title: User Documentation - Welcome
 toc_rank: 101
 permalink: /docs/
+description: WireMock's user documentation.
 ---
 
 WireMock is an HTTP mock server. At its core it is web server that can be primed to serve canned responses to particular requests (stubbing) and

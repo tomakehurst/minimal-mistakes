@@ -3,6 +3,7 @@ layout: docs
 title: Proxying
 toc_rank: 6
 redirect_from: "/proxying.html"
+description: Using WireMock as a conditional proxy to another API. Intercepting and replacing responses.
 ---
 
 WireMock has the ability to selectively proxy requests through to

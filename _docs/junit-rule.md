@@ -3,6 +3,7 @@ layout: docs
 title: 'The JUnit 4.x Rule'
 toc_rank: 2
 redirect_from: "/junit-rule.html"
+description: The WireMock JUnit rule.
 ---
 
 The JUnit rule provides a convenient way to include WireMock in your

@@ -3,6 +3,7 @@ layout: docs
 title: HTTPS
 toc_rank: 10
 redirect_from: "/https.html"
+description: Using WireMock with HTTPS.
 ---
 
 ## Handling HTTPS requests

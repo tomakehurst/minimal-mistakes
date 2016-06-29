@@ -3,6 +3,7 @@ layout: docs
 title: 'Java (Non-JUnit) Usage'
 toc_rank: 3
 redirect_from: "/java-usage.html"
+description: Using WireMock from within a Java application or service.
 ---
 
 ## The Server

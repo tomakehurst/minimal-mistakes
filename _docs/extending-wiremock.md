@@ -3,6 +3,7 @@ layout: docs
 title: Extending WireMock
 toc_rank: 11
 redirect_from: "/extending-wiremock.html"
+description: Extending WireMock via custom code.
 ---
 
 ## Registering Extensions

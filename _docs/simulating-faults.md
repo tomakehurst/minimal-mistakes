@@ -3,6 +3,7 @@ layout: docs
 title: Simulating Faults
 toc_rank: 8
 redirect_from: "/simulating-faults.html"
+description: Configuring WireMock to drop connections, return invalid HTTP and delay responses.
 ---
 
 **One of the main reasons it's beneficial to use web service fakes when
