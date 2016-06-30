@@ -8,19 +8,25 @@
   }
 }
 
+.homepage__title {
+  font-size: $type-size-1;
+}
+
+.homepage__subtitle {
+  border-bottom: 0 !important;
+}
+
 .code-shots__code-shot {
   width: 368px;
-  height: 275px;
+  height: 333px;
 
   @include breakpoint($small) {
-    width: 552px;
+    width: 456px;
     height: 413px;
-    // position: relative;
-    // left: -75px;
   }
 
   @include breakpoint($medium) {
-    width: 662px;
+    width: 548px;
     height: 496px;
   }
 }
@@ -36,6 +42,10 @@
 
   &__heading--centred {
     text-align: center;
+  }
+
+  strong {
+    color: $info-color;
   }
 }
 
