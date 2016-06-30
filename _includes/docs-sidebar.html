@@ -10,7 +10,7 @@
       {% for doc in sorted_docs %}
       <li>
         {% if doc.url == page.url %}<a href="{{ doc.url }}" class="nav__list-item--selected">
-        {% else %}<a href="{{ doc.url }}">{% endif %}
+        {% else %}<a href="{{ base_path }}{{ doc.url }}">{% endif %}
 
         {{ doc.title }}
       </a>

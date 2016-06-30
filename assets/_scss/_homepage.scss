@@ -1,10 +1,27 @@
 .code-shots {
   display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
 
-  &__code-shot {
-    margin: 10px;
-    width: 400px;
-    flex: 1;
+  @include breakpoint($small) {
+    justify-content: flex-start;
+  }
+}
+
+.code-shots__code-shot {
+  width: 368px;
+  height: 275px;
+
+  @include breakpoint($small) {
+    width: 552px;
+    height: 413px;
+    // position: relative;
+    // left: -75px;
+  }
+
+  @include breakpoint($medium) {
+    width: 662px;
+    height: 496px;
   }
 }
 
@@ -25,7 +42,7 @@
 .users-of {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: space-between;
 
   &__logo {
     margin: 2em;
