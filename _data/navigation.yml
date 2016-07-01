@@ -3,8 +3,8 @@ main:
   - title: "Docs"
     url: /docs
 
-  - title: "Blog"
-    url: /blog
+  # - title: "Blog"
+  #   url: /blog
 
   - title: "About"
     url: /about
@@ -16,6 +16,9 @@ main:
   - title: "Mailing List"
     url: 'https://groups.google.com/forum/#!forum/wiremock-user'
     new_window: true
+
+  # - title: "External Resources"
+  #   url: /external
 
   - title: "MockLab"
     url: http://get.mocklab.io
