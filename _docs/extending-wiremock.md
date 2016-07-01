@@ -13,11 +13,14 @@ You can register the extension programmatically via its class name,
 class or an instance:
 
 ```java
-new WireMockServer(wireMockConfig().extensions("com.mycorp.BodyContentTransformer", "com.mycorp.HeaderMangler"));
+new WireMockServer(wireMockConfig()
+  .extensions("com.mycorp.BodyContentTransformer", "com.mycorp.HeaderMangler"));
 
-new WireMockServer(wireMockConfig().extensions(BodyContentTransformer.class, HeaderMangler.class));
+new WireMockServer(wireMockConfig()
+  .extensions(BodyContentTransformer.class, HeaderMangler.class));
 
-new WireMockServer(wireMockConfig().extensions(new BodyContentTransformer(), new HeaderMangler()));
+new WireMockServer(wireMockConfig()
+  .extensions(new BodyContentTransformer(), new HeaderMangler()));
 ```
 
 See [Running as a Standalone Process](/docs/running-standalone/) for details on running with extensions from the command line.
@@ -139,7 +142,7 @@ stubFor(get(urlEqualTo("/local-transform")).willReturn(aResponse()
 
 or:
 
-```javascript
+```json
 {
     "request": {
         "method": "GET",
@@ -189,8 +192,7 @@ public static class StubResponseTransformerWithParams extends ResponseTransforme
 }
 ```
 
-Custom Request Matchers
-=======================
+## Custom Request Matchers
 
 If WireMock's standard set of request matching strategies isn't
 sufficient, you can register one or more request matcher classes
@@ -213,6 +215,14 @@ wireMockServer.stubFor(requestMatching(new RequestMatcher() {
         return request.getBody().length > 2048;
     }
 }).willReturn(aResponse().withStatus(422)));
+```
+
+In Java 8 and above this can be achieved using a lambda:
+
+```java
+wireMockServer.stubFor(requestMatching(request ->
+    request.getBody().length > 2048;
+).willReturn(aResponse().withStatus(422)));
 ```
 
 To create a matcher to be referred to by name, create a class extending
@@ -244,7 +254,7 @@ stubFor(requestMatching("body-too-long", Parameters.one("maxLemgth", 2048))
 
 or via JSON:
 
-```javascript
+```json
 {
     "request" : {
         "customMatcher" : {
@@ -257,5 +267,27 @@ or via JSON:
     "response" : {
         "status" : 422
     }
+}
+```
+
+## Listening for requests
+
+If you're using the JUnit rule or you've started `WireMockServer`
+programmatically, you can register listeners to be called when a request
+is received.
+
+e.g. with the JUnit rule:
+
+```java
+List<Request> requests = new ArrayList<Request>();
+rule.addMockServiceRequestListener(new RequestListener() {
+     @Override
+     public void requestReceived(Request request, Response response) {
+         requests.add(LoggedRequest.createFrom(request));
+     }
+});
+
+for (Request request: requests) {
+    assertThat(request.getUrl(), containsString("docId=92837592847"));
 }
 ```

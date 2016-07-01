@@ -19,15 +19,25 @@ To make WireMock available to your tests on its default port (8080):
 public WireMockRule wireMockRule = new WireMockRule();
 ```
 
-## Server configuration
-
 The rule's constructor can take an `Options` instance to override
 various settings. An `Options` implementation can be created via the
-`WireMockConfiguration.wireMockConfig()` builder:
+`WireMockConfiguration.options()` builder:
 
 ```java
 @Rule
-public WireMockRule wireMockRule = new WireMockRule(wireMockConfig().port(8888).httpsPort(8889));
+public WireMockRule wireMockRule = new WireMockRule(options().port(8888).httpsPort(8889));
+```
+
+See [Configuration](/docs/configuration/) for details.
+
+## Unmatched requests
+
+The JUnit rule will verify that all requests received during the course of a test case are served by a configured stub, rather than the default 404. If any are not
+a `VerificationException` is thrown, failing the test. This behaviour can be disabled by passing an extra constructor flag:
+
+```java
+@Rule
+public WireMockRule wireMockRule = new WireMockRule(options().port(8888), false);
 ```
 
 ## Other @Rule configurations
@@ -41,7 +51,7 @@ between test cases. This is easiest in JUnit 4.10:
 public static WireMockClassRule wireMockRule = new WireMockClassRule(8089);
 ```
 
-Unfortunately JUnit 4.11 prohibits `@Rule` on static members so a
+Unfortunately JUnit 4.11 and above prohibits `@Rule` on static members so a
 slightly more verbose form is required:
 
 ```java
@@ -52,22 +62,6 @@ public static WireMockClassRule wireMockRule = new WireMockClassRule(8089);
 public WireMockClassRule instanceRule = wireMockRule;
 ```
 
-And if you're still using JUnit 4.8:
-
-```java
-@Rule
-public static WireMockStaticRule wireMockRule = new WireMockStaticRule(8089);
-
-@AfterClass
-public static void stopWireMock() {
-    wireMockRule.stopServer();
-}
-```
-
-> **note**
->
-> `WireMockStaticRule` is deprecated as the above usage isn't permitted
-> from JUnit 4.11 onwards
 
 ## Accessing the stubbing and verification DSL from the rule
 

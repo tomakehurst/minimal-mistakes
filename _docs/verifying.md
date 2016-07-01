@@ -7,13 +7,22 @@ description: Verifying whether specific HTTP requests were made.
 ---
 
 The WireMock server records all requests it receives in memory (at
-least until it is [reset](/docs/stubbing#reset)/). This makes it possible to verify that
+least until it is [reset](/docs/stubbing#reset)). This makes it possible to verify that
 a request matching a specific pattern was received, and also to fetch
 the requests' details.
 
-## Checking for matching requests
+Verifying and querying requests relies on the request journal, which is an in-memory log
+of received requests. This can be disabled for load testing - see the [Configuration](/docs/configuration/) section for details.
 
-### Java
+## Verification failures, console output and IntelliJ
+
+When verifying via the Java API all failed verifications will result in a `VerificationException` being thrown.
+![Verification exception]({{ base_path }}/images/verification-exception.png)
+
+The message text in the exception is formatted to enable IntelliJ's failure comparison view:
+![Comparison failure]({{ base_path }}/images/idea-comparison-failure.png)
+
+## Verifying in Java
 
 To verify that a request matching some criteria was received by WireMock
 at least once:
@@ -44,7 +53,7 @@ verify(moreThanOrExactly(5), postRequestedFor(urlEqualTo("/many")));
 verify(moreThan(5), postRequestedFor(urlEqualTo("/many")));
 ```
 
-## JSON + HTTP
+## Verifying via the JSON + HTTP API
 
 There isn't a direct JSON equivalent to the above Java API. However,
 it's possible to achieve the same effect by requesting a count of the
@@ -54,7 +63,7 @@ what the Java method does under the hood).
 This can be done by posting a JSON document containing the criteria to
 `http://<host>:<port>/__admin/requests/count`:
 
-```javascript
+```json
 {
     "method": "POST",
     "url": "/resource/to/count",
@@ -68,36 +77,13 @@ This can be done by posting a JSON document containing the criteria to
 
 A response of this form will be returned:
 
-```javascript
+```json
 { "count": 4 }
 ```
 
-### Matching on header absence
+## Querying the request journal
 
-When verifying (unlike stubbing) it is possible to specify that a
-particular header is not present:
-
-```java
-verify(putRequestedFor(urlEqualTo("/without/header")).withoutHeader("Content-Type"));
-```
-
-Which is equivalent to:
-
-```javascript
-{
-    "url" : "/without/header",
-    "method" : "PUT",
-    "headers" : {
-        "Content-Type" : {
-            "absent" : true
-        }
-    }
-}
-```
-
-## Querying request details
-
-It is also possible to retrieve the details of recorded requests. In
+It is also possible to retrieve the details of logged requests. In
 Java this is done via a call to `findAll()`:
 
 ```java
@@ -108,7 +94,7 @@ And in JSON + HTTP by posting a criteria document (of the same form as
 for request counting) to `http://<host>:<port>/__admin/requests/find`,
 which will return a response like this:
 
-```javascript
+```json
 {
   "requests": [
     {
@@ -142,32 +128,189 @@ which will return a response like this:
 }
 ```
 
-## Listening for requests
-
-If you're using the JUnit rule or you've started `WireMockServer`
-programmatically, you can register listeners to be called when a request
-is received.
-
-e.g. with the JUnit rule:
-
-```java
-List<Request> requests = new ArrayList<Request>();
-rule.addMockServiceRequestListener(new RequestListener() {
-     @Override
-     public void requestReceived(Request request, Response response) {
-         requests.add(LoggedRequest.createFrom(request));
-     }
-});
-
-for (Request request: requests) {
-    assertThat(request.getUrl(), containsString("docId=92837592847"));
-}
-```
-
-## Reset
+## Resetting the request journal
 
 The request log can be reset at any time. If you're using either of the
 JUnit rules this will happen automatically at the start of every test
 case. However you can do it yourself via a call to
 `WireMock.resetAllRequests()` in Java or posting a request with an empty
 body to `http://<host>:<port>/__admin/requests/reset`.
+
+
+## Finding unmatched requests
+
+To find all requests which were received but not matched by a configured stub (i.e. received the default 404 response) do the following in Java:
+
+```java
+List<LoggedRequest> unmatched = WireMock.findUnmatchedRequests();
+```
+
+To find unmatched requests via the HTTP API, make a `GET` request to `/__admin/requests/unmatched`:
+
+```bash
+GET http://localhost:8080/__admin/requests/unmatched
+{
+  "requests" : [ {
+    "url" : "/nomatch",
+    "absoluteUrl" : "http://localhost:8080/nomatch",
+    "method" : "GET",
+    "clientIp" : "0:0:0:0:0:0:0:1",
+    "headers" : {
+      "User-Agent" : "curl/7.30.0",
+      "Accept" : "*/*",
+      "Host" : "localhost:8080"
+    },
+    "cookies" : { },
+    "browserProxyRequest" : false,
+    "loggedDate" : 1467402464520,
+    "bodyAsBase64" : "",
+    "body" : "",
+    "loggedDateString" : "2016-07-01T19:47:44Z"
+  } ],
+  "requestJournalDisabled" : false
+}
+```
+
+## Near misses
+
+"Near Misses" are a concept enabled by the new "distance".
+A near miss is essentially a pairing of a request and request pattern that are not an exact match for each other.
+
+Near misses can either represent the closest stubs to a given request, or the closest requests to a given request pattern depending on the type of query submitted.
+
+To find near misses representing stub mappings closest to the specified request in Java:
+
+```java
+List<NearMiss> nearMisses = WireMock.findNearMissesFor(myLoggedRequest);
+```
+
+To do the same via the HTTP API:
+
+```bash
+POST /__admin/near-misses/request
+
+{
+  "url": "/actual",
+  "absoluteUrl": "http://localhost:8080/actual",
+  "method": "GET",
+  "clientIp": "0:0:0:0:0:0:0:1",
+  "headers": {
+    "User-Agent": "curl/7.30.0",
+    "Accept": "*/*",
+    "Host": "localhost:8080"
+  },
+  "cookies": {},
+  "browserProxyRequest": false,
+  "loggedDate": 1467402464520,
+  "bodyAsBase64": "",
+  "body": "",
+  "loggedDateString": "2016-07-01T19:47:44Z"
+}
+```
+
+will return a response like:
+
+```json
+{
+  "nearMisses": [
+    {
+      "request": {
+        "url": "/actual",
+        "absoluteUrl": "http://localhost:8080/nomatch",
+        "method": "GET",
+        "clientIp": "0:0:0:0:0:0:0:1",
+        "headers": {
+          "User-Agent": "curl/7.30.0",
+          "Accept": "*/*",
+          "Host": "localhost:8080"
+        },
+        "cookies": {},
+        "browserProxyRequest": false,
+        "loggedDate": 1467402464520,
+        "bodyAsBase64": "",
+        "body": "",
+        "loggedDateString": "2016-07-01T19:47:44Z"
+      },
+      "stubMapping": {
+        "uuid": "42aedcf2-1f8d-4009-ac7b-9870e4ab2316",
+        "request": {
+          "url": "/expected",
+          "method": "GET"
+        },
+        "response": {
+          "status": 200
+        }
+      },
+      "matchResult": {
+        "distance": 0.12962962962962962
+      }
+    }
+  ]
+}
+```
+
+
+
+
+To find near misses representing stub mappings closest to the specified request in Java:
+
+```java
+List<NearMiss> nearMisses = WireMock.findNearMissesFor(
+    getRequestedFor(urlEqualTo("/thing-url"))
+        .withRequestBody(containing("thing"))
+);
+```
+
+The equivalent via the HTTP API:
+
+```bash
+POST /__admin/near-misses/request-pattern
+
+{
+    "url": "/almostmatch",
+    "method": "GET"
+}
+```
+
+will return a response like:
+
+```json
+{
+  "nearMisses": [
+    {
+      "request": {
+        "url": "/nomatch",
+        "absoluteUrl": "http://localhost:8080/nomatch",
+        "method": "GET",
+        "clientIp": "0:0:0:0:0:0:0:1",
+        "headers": {
+          "User-Agent": "curl/7.30.0",
+          "Accept": "*/*",
+          "Host": "localhost:8080"
+        },
+        "cookies": {},
+        "browserProxyRequest": false,
+        "loggedDate": 1467402464520,
+        "bodyAsBase64": "",
+        "body": "",
+        "loggedDateString": "2016-07-01T19:47:44Z"
+      },
+      "requestPattern": {
+        "url": "/almostmatch",
+        "method": "GET"
+      },
+      "matchResult": {
+        "distance": 0.06944444444444445
+      }
+    }
+  ]
+}
+```
+
+As a convenience you can also find the top 3 near misses for every unmatched request:
+
+```java
+List<NearMiss> nearMisses = WireMock.findNearMissesForAllUnmatched();
+```
+
+To do the same via the HTTP API, issue a `GET` to `/__admin/requests/unmatched/near-misses`.

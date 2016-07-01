@@ -8,19 +8,20 @@ description: Using WireMock from within a Java application or service.
 
 ## The Server
 
-
 If you want to use WireMock from Java (or any other JVM language)
 outside of JUnit you can programmatically create, start and stop the
 server:
 
 ```java
-WireMockServer wireMockServer = new WireMockServer(wireMockConfig().port(8089)); //No-args constructor will start on port 8080, no HTTPS
+WireMockServer wireMockServer = new WireMockServer(options().port(8089)); //No-args constructor will start on port 8080, no HTTPS
 wireMockServer.start();
 
 // Sometime later
 
 wireMockServer.stop();
 ```
+
+For more details of the `options()` builder accepted by the constructor see [Configuration](/docs/configuration/) for details.
 
 As with stubbing and verification via the [JUnit rule](/docs/junit-rule/) you can call the
 stubbing/verifying DSL from the server object as an alternative to
