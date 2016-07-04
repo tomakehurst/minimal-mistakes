@@ -173,8 +173,9 @@ GET http://localhost:8080/__admin/requests/unmatched
 
 ## Near misses
 
-"Near Misses" are a concept enabled by the new "distance".
-A near miss is essentially a pairing of a request and request pattern that are not an exact match for each other.
+"Near Misses" are enabled by the new "distance" concept added to the matching system.
+A near miss is essentially a pairing of a request and request pattern that are not an exact match for each other, that can be ranked by distance.
+This is useful when debugging test failures as it is quite common for a request not to be matched to a stub due to a minor difference e.g. a miscapitalised character.
 
 Near misses can either represent the closest stubs to a given request, or the closest requests to a given request pattern depending on the type of query submitted.
 
@@ -313,4 +314,5 @@ As a convenience you can also find the top 3 near misses for every unmatched req
 List<NearMiss> nearMisses = WireMock.findNearMissesForAllUnmatched();
 ```
 
-To do the same via the HTTP API, issue a `GET` to `/__admin/requests/unmatched/near-misses`.
+To do the same via the HTTP API, issue a `GET` to `/__admin/requests/unmatched/near-misses`, which will produce output of the same form as
+for the query for near misses by request.
