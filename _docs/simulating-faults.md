@@ -27,7 +27,7 @@ stubFor(get(urlEqualTo("/delayed")).willReturn(
 
 Or
 
-```javascript
+```json
 {
     "request": {
         "method": "GET",
@@ -40,13 +40,13 @@ Or
 }
 ```
 
-## Global stub delays
+## Global fixed stub delays
 
 A fixed delay can be added to all stubs either by calling
 `WireMock.setGlobalFixedDelay()` or posting a JSON document of the
 following form to `http://<host>:<port>/__admin/settings`:
 
-```javascript
+```json
 {
     "fixedDelay": 500
 }
@@ -70,7 +70,7 @@ stubFor(get(urlEqualTo("/random/delayed")).willReturn(
 
 Or set it on the `delayDistribution` field via the JSON api:
 
-```javascript
+```json
 {
     "request": {
             "method": "GET",
@@ -88,13 +88,13 @@ Or set it on the `delayDistribution` field via the JSON api:
 }
 ```
 
-## Global stub delays
+## Global random stub delays
 
 You can set a random delay globally with
 `WireMock.setGlobalRandomDelay()` or the JSON api at
 `http://<host>:<port>/__admin/settings`:
 
-```javascript
+```json
 {
     "delayDistribution": {
             "type": "lognormal",
@@ -121,7 +121,7 @@ to find a good approximation.
 
 To use, instantiate a `new LogNormal(median, sigma)`, or via JSON:
 
-```javascript
+```json
 "delayDistribution": {
         "type": "lognormal",
         "median": 80,
@@ -142,7 +142,7 @@ For instance, to simulate a stable latency of 20ms +/- 5ms, use lower =
 
 To use, instantiate a `new UniformDistribution(15, 25)`, or via JSON:
 
-```javascript
+```json
 "delayDistribution": {
         "type": "uniform",
         "lower": 15,
@@ -170,7 +170,7 @@ close the connection.
 
 In JSON (fault values are the same as the ones listed above):
 
-```javascript
+```json
 {
     "request": {
         "method": "GET",
