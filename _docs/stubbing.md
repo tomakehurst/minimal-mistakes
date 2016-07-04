@@ -7,8 +7,7 @@ description: Returning stubbed HTTP responses to specific requests.
 ---
 
 A core feature of WireMock is the ability to return canned HTTP
-responses for requests matching criteria. These criteria can be defined
-in terms of URL, headers and body content.
+responses for requests matching criteria. These are described in detail in [Request Matching](/docs/request-matching/).
 
 ## Basic stubbing
 
@@ -278,7 +277,40 @@ request with an empty body to
 
 ## Editing stubs
 
+Existing stub mappings can be modified, provided they have been assigned an ID.
 
+In Java:
+
+```java
+wireMockServer.stubFor(get(urlEqualTo("/edit-this"))
+    .withId(id)
+    .willReturn(aResponse()
+        .withBody("Original")));
+
+assertThat(testClient.get("/edit-this").content(), is("Original"));
+
+wireMockServer.editStub(get(urlEqualTo("/edit-this"))
+    .withId(id)
+    .willReturn(aResponse()
+        .withBody("Modified")));
+
+assertThat(testClient.get("/edit-this").content(), is("Modified"));
+```
+
+To do the equivalent via the JSON API, `POST` the edited stub mapping, with the same ID to `/__admin/mappings/edit`:
+
+```json
+{
+  "uuid" : "4c4508c4-3fbd-43b8-9b5a-2775b8eefa27",
+  "request" : {
+    "urlPath" : "/edit-me",
+    "method" : "ANY"
+  },
+  "response" : {
+    "status" : 200
+  }
+}
+```
 
 ## Removing stubs
 
@@ -309,7 +341,7 @@ with request that matches url="/v8/asd/26", and method "method": "GET".
 }
 ```
 
-This is because body does not have UUID. if it had an element like
+This is because body does not have UUID. If it had an element like
 `"uuid": "aa85aed3-66c8-42bb-a79b-38e3264ff2ef"`, in addition to "request"
 and "response" then WireMock will remove the one that matches the uuid
 provided. removing via uuid has precedence over removing via request

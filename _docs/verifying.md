@@ -14,6 +14,8 @@ the requests' details.
 Verifying and querying requests relies on the request journal, which is an in-memory log
 of received requests. This can be disabled for load testing - see the [Configuration](/docs/configuration/) section for details.
 
+Like stubbing, verification also uses WireMock's [Request Matching](/docs/request-matching/) system to filter and query requests.
+
 ## Verification failures, console output and IntelliJ
 
 When verifying via the Java API all failed verifications will result in a `VerificationException` being thrown.

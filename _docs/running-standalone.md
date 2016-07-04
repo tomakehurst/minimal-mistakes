@@ -9,12 +9,15 @@ description: Running WireMock as a standalone mock server.
 The WireMock server can be run in its own process, and configured via
 the Java API, JSON over HTTP or JSON files.
 
-This will start the server on port 8080:
+Once you have [downloaded the standalone JAR](http://repo1.maven.org/maven2/com/github/tomakehurst/wiremock-standalone/2.1.0-beta/wiremock-standalone-2.1.0-beta.jar) you can run it simply by doing this:
 
-You can [download the standalone JAR from
-here](http://repo1.maven.org/maven2/com/github/tomakehurst/wiremock-standalone/2.1.0-beta/wiremock-standalone-2.1.0-beta.jar).
+```bash
+$ java -jar wiremock-standalone-2.1.0-beta.jar
+```
 
-Supported command line options are:
+## Command line options
+
+The following can optionally be specified on the command line:
 
 `--port`: Set the HTTP port number e.g. `--port 9999`
 
@@ -92,24 +95,30 @@ accepting requests.
 e.g. `--jetty-header-buffer-size 16384`, defaults to 8192K.
 
 `--extensions`: Extension class names e.g.
-com.mycorp.HeaderTransformer,com.mycorp.BodyTransformer. See
-extending-wiremock.
+com.mycorp.HeaderTransformer,com.mycorp.BodyTransformer. See extending-wiremock.
 
 `--help`: Show command line help
 
-## File serving
+## Configuring WireMock using the Java client
 
-When running standalone files placed under the `__files` directory will
-be served up as if from under the docroot, except if stub mapping
-matching the URL exists. For example if a file exists
-`__files/things/myfile.html` and no stub mapping will match
-`/things/myfile.html` then hitting
-`http://<host>:<port>/things/myfile.html` will serve the file.
+The WireMock Java API can be used against a running server on a different host if required. If you're only planning to configure a single remote instance from within your program you can configure the static DSL to point to it:
 
-## Configuring via JSON
+```java
+WireMock.configureFor("my.remote.host", 8000);
 
-Once the server has started you can give it a spin by setting up a stub
-mapping via the JSON API:
+// or for HTTPS
+WireMock.configureFor("https", "my.remote.host", 8443);
+```
+
+Alternatively you can create an instance of the client (or as many as there are servers to configure):
+```java
+WireMock wireMock1 = new WireMock("1st.remote.host", 8000);
+WireMock wireMock2 = new WireMock("https", "2nd.remote.host", 8001);
+```
+
+## Configuring via JSON over HTTP
+
+You can create a stub mapping by posting to WireMock's HTTP API:
 
 ```bash
 $ curl -X POST \
@@ -117,12 +126,16 @@ $ curl -X POST \
 http://localhost:8080/__admin/mappings/new
 ```
 
-Then fetching it back:
+And then fetch it back:
 
 ```bash
 $ curl http://localhost:8080/get/this
 Here it is!
 ```
+
+The full stubbing API syntax is described in [Stubbing](/docs/stubbing/).
+
+## JSON file configuration
 
 You can also use the JSON API via files. When the WireMock server starts
 it creates two directories under the current one: `mappings` and
@@ -152,6 +165,15 @@ More content
 ```
 
 See stubbing and verifying for more on the JSON API.
+
+## File serving
+
+When running standalone files placed under the `__files` directory will
+be served up as if from under the docroot, except if stub mapping
+matching the URL exists. For example if a file exists
+`__files/things/myfile.html` and no stub mapping will match
+`/things/myfile.html` then hitting
+`http://<host>:<port>/things/myfile.html` will serve the file.
 
 ### Shutting Down
 
