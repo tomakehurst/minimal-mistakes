@@ -6,6 +6,8 @@ description: Extensions, integrations, blog posts and videos about WireMock.
 
 # External Resources
 
+Code, articles and videos related to WireMock from around the web.
+
 ## Integrations
 
 Spring Contract Verifier (previously called Accurest) is a consumer driven contracts tool that generates WireMock stub mappings as
@@ -38,7 +40,7 @@ Tom Jankes has written a Groovy binding:<br>
 ## Articles
 
 Sam Edwards has been hugely helpful in getting WireMock onto the Android platform and helping others do so. Here is his blog post explaining
-how to write an Espresso testing using WireMock as your app's back-end:
+how to write an Espresso test using WireMock as your app's back-end:<br>
 [handstandsam.com/2016/01/30/running-wiremock-on-android](handstandsam.com/2016/01/30/running-wiremock-on-android/)
 
 Dusan Dević at Yenlo wrote a useful guide to testing error conditions in the WSO2 ESB using Wiremock:<br>
