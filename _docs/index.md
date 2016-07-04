@@ -1,7 +1,7 @@
 ---
 layout: docs
 title: Home - WireMock User Documentation
-toc_rank: 101
+toc_rank: 1001
 permalink: /docs/
 description: WireMock's user documentation.
 ---

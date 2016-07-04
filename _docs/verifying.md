@@ -1,7 +1,7 @@
 ---
 layout: docs
 title: Verifying
-toc_rank: 6
+toc_rank: 60
 redirect_from: "/verifying.html"
 description: Verifying whether specific HTTP requests were made.
 ---

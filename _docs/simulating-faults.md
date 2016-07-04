@@ -1,7 +1,7 @@
 ---
 layout: docs
 title: Simulating Faults
-toc_rank: 8
+toc_rank: 80
 redirect_from: "/simulating-faults.html"
 description: Configuring WireMock to drop connections, return invalid HTTP and delay responses.
 ---

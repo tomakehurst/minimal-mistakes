@@ -1,7 +1,7 @@
 ---
 layout: docs
 title: Stubbing
-toc_rank: 5
+toc_rank: 50
 redirect_from: "/stubbing.html"
 description: Returning stubbed HTTP responses to specific requests.
 ---
@@ -40,7 +40,7 @@ document can either be posted to
 `http://<host>:<port>/__admin/mappings/new` or placed in a file with a
 `.json` extension under the `mappings` directory:
 
-```javascript
+```json
 {
     "request": {
         "method": "GET",
@@ -58,35 +58,6 @@ document can either be posted to
 
 
 
-```java
-  @Test
-  public void exactUrlOnly() {
-      stubFor(get(urlEqualTo("/some/thing"))
-              .willReturn(aResponse()
-                  .withHeader("Content-Type", "text/plain")
-                  .withBody("Hello world!")));
-
-      assertThat(testClient.get("/some/thing").statusCode(), is(200));
-      assertThat(testClient.get("/some/thing/else").statusCode(), is(404));
-  }
-```
-```javascript
-  {
-      "request": {
-          "method": "GET",
-          "url": "/some/thing"
-      },
-      "response": {
-          "status": 200,
-          "body": "Hello world!",
-          "headers": {
-              "Content-Type": "text/plain"
-          }
-      }
-  }
-```
-
-
 HTTP methods currently supported are:
 `GET, POST, PUT, DELETE, HEAD, TRACE, OPTIONS`. You can specify `ANY` if
 you want the stub mapping to match on any request method.
@@ -94,7 +65,9 @@ you want the stub mapping to match on any request method.
 ### Setting the response status message
 
 In addition to the status code, the status message can optionally also
-be set:
+be set.
+
+Java:
 
 ```java
 @Test
@@ -110,9 +83,9 @@ public void statusMessage() {
 }
 ```
 
-Or
+JSON:
 
-```javascript
+```json
 {
     "request": {
         "method": "GET",
@@ -124,349 +97,6 @@ Or
     }
 }
 ```
-
-## URL matching
-
-Entire URLs can be matched exactly (as in the example above) or via a
-regular expression. In Java this is done with the `urlMatching()`
-function:
-
-```java
-stubFor(put(urlMatching("/thing/matching/[0-9]+"))
-    .willReturn(aResponse().withStatus(200)));
-```
-
-And in JSON via the `urlPattern` attribute:
-
-```javascript
-{
-    "request": {
-        "method": "PUT",
-        "urlPattern": "/thing/matching/[0-9]+"
-    },
-    "response": {
-        "status": 200
-    }
-}
-```
-
-Alternatively, just the path part of the URL can be matched exactly or
-using a regular expression, which is most useful when combined with
-query parameter matching:
-
-```java
-stubFor(get(urlPathEqualTo("/query"))
-    .withQueryParam("one", equalTo("111"))
-    .willReturn(aResponse().withStatus(200)));
-```
-
-```java
-stubFor(get(urlPathMatching("/qu.*"))
-    .withQueryParam("one", equalTo("111"))
-    .willReturn(aResponse().withStatus(200)));
-```
-
-And in JSON via the `urlPath` attribute:
-
-```javascript
-{
-    "request": {
-        "method": "GET",
-        "urlPath": "/query"
-    },
-    "response": {
-        "status": 200
-    }
-}
-```
-
-## Request header matching
-
-To match stubs according to request headers:
-
-```java
-stubFor(post(urlEqualTo("/with/headers"))
-    .withHeader("Content-Type", equalTo("text/xml"))
-    .withHeader("Accept", matching("text/.*"))
-    .withHeader("etag", notMatching("abcd.*"))
-    .withHeader("X-Custom-Header", containing("2134"))
-        .willReturn(aResponse().withStatus(200)));
-```
-
-Or
-
-```javascript
-{
-    "request": {
-        "method": "POST",
-        "url": "/with/headers",
-        "headers": {
-            "Content-Type": {
-                "equalTo": "text/xml"
-            },
-            "Accept": {
-                "matches": "text/.*"
-            },
-            "etag": {
-                "doesNotMatch": "abcd.*"
-            },
-            "X-Custom-Header": {
-                "contains": "2134"
-            }
-        }
-    },
-    "response": {
-        "status": 200
-    }
-}
-```
-
-## Basic Authentication
-
-Although HTTP basic authentication can be supported by requiring a
-correctly encoded Authorization header, you can also do this more simply
-via the API:
-
-```java
-stubFor(get(urlEqualTo("/basic-auth")).withBasicAuth("user", "pass")
-```
-
-Or
-
-```javascript
-{
-    "request": {
-        "method": "GET",
-        "url": "/basic-auth",
-        "basicAuth" : {
-            "username" : "user",
-            "password" : "pass"
-        }
-    },
-    "response": {
-        "status": 200
-    }
-}
-```
-
-## Query parameter matching
-
-Query parameters can be matched in a similar fashion to headers:
-
-```java
-stubFor(get(urlPathEqualTo("/with/query"))
-    .withQueryParam("search", containing("Some text"))
-        .willReturn(aResponse().withStatus(200)));
-```
-
-And in JSON:
-
-```javascript
-{
-    "request": {
-        "method": "GET",
-        "urlPath": "/with/query",
-        "queryParameters": {
-            "search": {
-                "contains": "Some text"
-            }
-        }
-    },
-    "response": {
-        "status": 200
-    }
-}
-```
-
-Note: you must use `urlPathEqualTo` or `urlPathMatching` to specify the
-path, as `urlEqualTo` or `urlMatching` will attempt to match the whole
-request URL, including the query parameters.
-
-## Request body matching
-
-For PUT and POST requests the contents of the request body can be used
-to match stubs:
-
-```java
-stubFor(post(urlEqualTo("/with/body"))
-    .withRequestBody(matching("<status>OK</status>"))
-    .withRequestBody(notMatching(".*ERROR.*"))
-        .willReturn(aResponse().withStatus(200)));
-```
-
-Body content can be matched using all the same predicates as for
-headers: `equalTo`, `matching`, `notMatching`, `containing`.
-
-The JSON equivalent of the above example would be:
-
-```javascript
-{
-    "request": {
-        "method": "POST",
-        "url": "/with/body",
-        "bodyPatterns": [
-            { "matches": "<status>OK</status>" },
-            { "doesNotMatch": ".*ERROR.*" }
-        ]
-    },
-    "response": {
-        "status": 200
-    }
-}
-```
-
-## JSON body matching
-
-Body content which is valid JSON can be matched on semantically:
-
-```java
-stubFor(post(urlEqualTo("/with/json/body"))
-    .withRequestBody(equalToJson("{ \"houseNumber\": 4, \"postcode\": \"N1 1ZZ\" }"))
-    .willReturn(aResponse().withStatus(200)));
-```
-
-By default JSON documents will be matched strictly - array order will matched and extra elements will not be permitted.
-However, you can override either of these traits:
-
-
-```java
-.withRequestBody(equalToJson("{ \"houseNumber\": 4, \"postcode\": \"N1 1ZZ\" }", true, true))
-```
-
-The JSON equivalent of the above example is:
-
-```javascript
-{
-    "request": {
-        "method": "POST",
-        "url": "/with/json/body",
-        "bodyPatterns" : [
-            { "equalToJson" : "{ \"houseNumber\": 4, \"postcode\": \"N1 1ZZ\" }",
-              "ignoreArrayOrder": true,
-              "ignoreExtraElements": true
-            }
-        ]
-    },
-    "response": {
-        "status": 200
-    }
-}
-```
-
-JSONPath expressions can also be used:
-
-```java
-stubFor(post(urlEqualTo("/with/json/body"))
-    .withRequestBody(matchingJsonPath("$.status"))
-    .withRequestBody(matchingJsonPath("$.things[$(@.name == 'RequiredThing')]"))
-    .willReturn(aResponse().withStatus(201)));
-```
-
-The path syntax is implemented by the [JSONPath
-library](http://goessner.net/articles/JsonPath/). A JSON body will be
-considered to match a path expression if the expression returns either a
-non-null single value (string, integer etc.), or a non-empty object or
-array.
-
-The JSON equivalent of the above example would be:
-
-```javascript
-{
-    "request": {
-        "method": "POST",
-        "url": "/with/json/body",
-        "bodyPatterns" : [
-            { "matchesJsonPath" : "$.status"},
-            { "matchesJsonPath" : "$.things[?(@.name == 'RequiredThing')]" }
-        ]
-    },
-    "response": {
-        "status": 201
-    }
-}
-```
-
-## XML body matching
-
-As with JSON, XML bodies can be matched on semantically.
-
-In Java:
-
-```java
-.withRequestBody(equalToXml("<thing>value</thing>"))
-```
-
-and in JSON:
-
-```javascript
-"bodyPatterns" : [
-    { "equalToXml" : "<thing>value</thing>" }
-]
-```
-
-## XPath body matching
-
-Similar to matching on JSONPath, XPath can be used with XML bodies. An
-XML document will be considered to match if any elements are returned by
-the XPath evaluation.
-
-```java
-stubFor(put(urlEqualTo("/xpath"))
-    .withRequestBody(matchingXPath("/todo-list[count(todo-item) = 3]"))
-    .willReturn(aResponse().withStatus(200)));
-```
-
-The JSON equivalent of which would be:
-
-```javascript
-{
-    "request": {
-        "method": "PUT",
-        "url": "/xpath",
-        "bodyPatterns" : [
-            { "matchesXPath" : "/todo-list[count(todo-item) = 3]" },
-        ]
-    },
-    "response": {
-        "status": 200
-    }
-}
-```
-
-To match XML with namespaced elements the namespaces must be registered:
-
-```java
-stubFor(put(urlEqualTo("/namespaced/xpath"))
-    .withRequestBody(matchingXPath("/stuff:outer/stuff:inner[.=111]")
-            .withXPathNamespace("stuff", "http://foo.com"))
-    .willReturn(aResponse().withStatus(200)));
-```
-
-or:
-
-```javascript
-{
-    "request": {
-        "method": "PUT",
-        "url": "/xpath",
-        "bodyPatterns" : [
-            { "matchesXPath" : "/stuff:outer/stuff:inner[.=111]" ,
-              "xPathNamespaces" : {
-                  "stuff" : "http://foo.com/"
-              }
-            },
-        ]
-    },
-    "response": {
-        "status": 200
-    }
-}
-```
-
-> **note**
->
-> All of the request matching options described here can also be used
-> for [Verifying](/docs/verifying/).
 
 ## Stub priority
 
@@ -494,7 +124,7 @@ stubFor(get(urlEqualTo("/api/specific-resource")).atPriority(1) //1 is highest
 
 Priority is set via the `priority` attribute in JSON:
 
-```javascript
+```json
 {
     "priority": 1,
     "request": {
@@ -521,7 +151,7 @@ stubFor(get(urlEqualTo("/whatever"))
 
 Or
 
-```javascript
+```json
 {
     "request": {
         "method": "GET",
@@ -539,7 +169,9 @@ Or
 
 ## Specifying the response body
 
-The simplest way to specify a response body is as a string literal:
+The simplest way to specify a response body is as a string literal.
+
+Java:
 
 ```java
 stubFor(get(urlEqualTo("/body"))
@@ -547,9 +179,9 @@ stubFor(get(urlEqualTo("/body"))
                 .withBody("Literal text to put in the body")));
 ```
 
-Or
+JSON:
 
-```javascript
+```json
 {
     "request": {
         "method": "GET",
@@ -561,6 +193,18 @@ Or
     }
 }
 ```
+
+If you're specifying a JSON body via the JSON API, you can avoid having to escape it like this:
+
+```json
+    "response": {
+        "status": 200,
+        "jsonBody": {
+          "arbitrary_json": [1, 2, 3]
+        }
+    }
+```
+
 
 To read the body content from a file, place the file under the `__files`
 directory. By default this is expected to be under `src/test/resources`
@@ -577,7 +221,7 @@ stubFor(get(urlEqualTo("/body-file"))
 
 Or
 
-```javascript
+```json
 {
     "request": {
         "method": "GET",
@@ -609,7 +253,7 @@ stubFor(get(urlEqualTo("/binary-body"))
 The JSON API accepts this as a base64 string (to avoid stupidly long
 JSON documents):
 
-```javascript
+```json
 {
     "request": {
         "method": "GET",
@@ -629,8 +273,12 @@ directory via a call to `WireMock.saveAllMappings` in Java or posting a
 request with an empty body to
 `http://<host>:<port>/__admin/mappings/save`.
 
-Note that this feature is not available when running WireMock from a
-servlet container.
+> **note**
+> Note that this feature is not available when running WireMock from a servlet container.
+
+## Editing stubs
+
+
 
 ## Removing stubs
 
@@ -648,35 +296,33 @@ For Example - posting following stub as body to
 `http://<host>:<port>/__admin/mappings/remove`. will find first mapping
 with request that matches url="/v8/asd/26", and method "method": "GET".
 
-```javascript
+```json
+{
+  "request": {
+      "url": "/v8/asd/26",
+      "method": "GET"
+    },
+    "response": {
+      "status": 202,
+      "headers": { "Content-Type": "text/plain" } },
+      "body": "response for test"
+}
 ```
 
-{
-
-:   
-
-    "request": {
-
-    :   "url": "/v8/asd/26", "method": "GET"
-
-    }, "response": { "status": 202, "body": "response for test",
-    "headers": { "Content-Type": "text/plain" } }
-
-> }
-
 This is because body does not have UUID. if it had an element like
-"uuid": "aa85aed3-66c8-42bb-a79b-38e3264ff2ef",in addition to "request"
-and "response" then wiremock will remove the one that matches the uuid
+`"uuid": "aa85aed3-66c8-42bb-a79b-38e3264ff2ef"`, in addition to "request"
+and "response" then WireMock will remove the one that matches the uuid
 provided. removing via uuid has precedence over removing via request
 match.
 
-if the remove request UUID does not match with any of the stubs, then it
-proceeds to match with request. it will still remove the first stub with
-with request match even though UUID did not match/was not provided.
+If the remove request UUID does not match with any of the stubs, then it
+proceeds to remove the first request whose attributes are equal.
 
-Note that this api only removes one mapping and not multiple ones if
-they exist Note that this feature is not available when running WireMock
-from a servlet container.
+> **note**
+> This api only removes one mapping and not multiple ones if they exist
+
+> **note**
+> This feature is not available when running WireMock from a servlet container.
 
 ## Reset
 

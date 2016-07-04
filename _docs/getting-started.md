@@ -1,7 +1,7 @@
 ---
 layout: docs
 title: Getting Started
-toc_rank: 1
+toc_rank: 10
 redirect_from: "/getting-started.html"
 description: Getting started with WireMock. Java, JUnit, standalone, servlet container.
 ---

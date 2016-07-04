@@ -1,7 +1,7 @@
 ---
 layout: docs
 title: Running as a Standalone Process
-toc_rank: 4
+toc_rank: 41
 redirect_from: "/running-standalone.html"
 description: Running WireMock as a standalone mock server.
 ---

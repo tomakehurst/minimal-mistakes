@@ -1,7 +1,7 @@
 ---
 layout: docs
 title: 'Configuration'
-toc_rank: 4
+toc_rank: 40
 description: Configuring WireMockServer and the JUnit rule programmatically.
 ---
 

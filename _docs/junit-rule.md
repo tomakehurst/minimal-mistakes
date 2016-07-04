@@ -1,7 +1,7 @@
 ---
 layout: docs
 title: 'The JUnit 4.x Rule'
-toc_rank: 2
+toc_rank: 20
 redirect_from: "/junit-rule.html"
 description: The WireMock JUnit rule.
 ---
