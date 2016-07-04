@@ -131,7 +131,7 @@ it creates two directories under the current one: `mappings` and
 To create a stub like the one above by this method, drop a file with a
 `.json` extension under `mappings` with the following content:
 
-```javascript
+```json
 {
     "request": {
         "method": "GET",

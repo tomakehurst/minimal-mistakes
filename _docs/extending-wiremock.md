@@ -100,7 +100,7 @@ stubFor(get(urlEqualTo("/transform")).willReturn(
 
 or:
 
-```javascript
+```json
 {
     "request" : {
         "url" : "/transform",

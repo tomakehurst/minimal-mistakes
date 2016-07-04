@@ -33,7 +33,7 @@ stubFor(get(urlMatching("/other/service/.*"))
 
 The JSON equivalent would be:
 
-```javascript
+```json
 {
     "request": {
         "method": "GET",
@@ -80,7 +80,7 @@ stubFor(get(urlMatching(".*"))
 
 or
 
-```javascript
+```json
 {
     "request": {
         "method": "GET",

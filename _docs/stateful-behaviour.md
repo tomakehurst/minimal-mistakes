@@ -64,7 +64,7 @@ public void toDoListScenario() {
 
 The JSON equivalent for the above three stubs is:
 
-```javascript
+```json
 {
     "scenarioName": "To do list",
     "requiredScenarioState": "Started",
