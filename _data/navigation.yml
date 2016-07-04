@@ -17,8 +17,8 @@ main:
     url: 'https://groups.google.com/forum/#!forum/wiremock-user'
     new_window: true
 
-  # - title: "External Resources"
-  #   url: /external
+  - title: "External Resources"
+    url: /external-resources
 
   - title: "MockLab"
     url: http://get.mocklab.io

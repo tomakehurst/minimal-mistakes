@@ -1,6 +1,7 @@
 ---
 layout: splash
 author_profile: true
+title: About
 ---
 
 # About WireMock
