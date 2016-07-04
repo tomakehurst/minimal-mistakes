@@ -14,6 +14,9 @@ Spring Contract Verifier (previously called Accurest) is a consumer driven contr
 examples for client testing.
 [http://codearte.github.io/accurest/](http://codearte.github.io/accurest/)
 
+A Spring REST Docs integration for WireMock that generates WireMock stub mappings from your test cases:<br>
+[https://github.com/epages-de/restdocs-wiremock](https://github.com/epages-de/restdocs-wiremock)
+
 
 ## Extensions
 
@@ -41,7 +44,7 @@ Tom Jankes has written a Groovy binding:<br>
 
 Sam Edwards has been hugely helpful in getting WireMock onto the Android platform and helping others do so. Here is his blog post explaining
 how to write an Espresso test using WireMock as your app's back-end:<br>
-[handstandsam.com/2016/01/30/running-wiremock-on-android](handstandsam.com/2016/01/30/running-wiremock-on-android/)
+[http://handstandsam.com/2016/01/30/running-wiremock-on-android/](http://handstandsam.com/2016/01/30/running-wiremock-on-android/)
 
 Dusan Dević at Yenlo wrote a useful guide to testing error conditions in the WSO2 ESB using Wiremock:<br>
 [https://www.yenlo.com/blog/wso2torial-error-handling-in-wso2-esb-with-wiremock](https://www.yenlo.com/blog/wso2torial-error-handling-in-wso2-esb-with-wiremock)
