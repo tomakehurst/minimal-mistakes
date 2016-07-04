@@ -107,15 +107,32 @@ Then it's simply a case of adding your stub mapping `.json` files under `mapping
 
 ## Running as a browser proxy
 
+WireMock can be made to work as a forward (browser) proxy.
 
-WireMock can be made to work as a browser proxy. This supports a website
-based variant of the proxy/intercept pattern described above, allowing
+One benefit of this is that it supports a website-based variant of the proxy/intercept pattern described above, allowing
 you to modify specific AJAX requests or swap out CSS/Javascript files.
 
-This currently only works in standalone mode:
+To configure your browser to proxy via WireMock, first start WireMock with browser proxying enabled:
+
+```bash
+$ java -jar wiremock-standalone-2.1.0-beta.jar --enable-browser-proxying --port 9999
+```
+
+Then open your browser's proxy settings and point them to the running server:
+<img src="{{ base_path }}/images/firefox-proxy-screenshot.png" alt="Firefox proxy screenshot" style="width: 50%; height: auto; margin-top: 1em;"/>
+
+After that, you can configure stubs as described in [Running Standalone](/docs/running-standalone/#configuring-wiremock-using-the-java-client) and then browse to a website. Any resources fetched whose requests are matched by stubs you have configured will be overridden by the stub's response.
+
+So for instance, say you're visiting
+a web page that fetches a user profile via an AJAX call to `/users/12345.json` and you wanted to test how it responded to a server unavailable response. You could create a stub like this and the response from the server would be swapped for a 503 response:
+
+```java
+stubFor(get(urlEqualTo("/users/12345.json"))
+  .willReturn(aResponse()
+  .withStatus(503)));
+```
 
 ## Proxying via another proxy server
-
 
 If you're inside a network that only permits HTTP traffic out to the
 internet via an opaque proxy you might wish to set up proxy mappings
@@ -124,10 +141,9 @@ passing a configuration object to the constructor of `WireMockServer` or
 the JUnit rules like this:
 
 ```java
-import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig;
-...
-
-WireMockServer wireMockServer = new WireMockServer(wireMockConfig().proxyVia("proxy.mycorp.com", 8080);
+WireMockServer wireMockServer = new WireMockServer(options()
+  .proxyVia("proxy.mycorp.com", 8080)
+);
 ```
 
 ## Proxying to a target server that requires client certificate authentication
